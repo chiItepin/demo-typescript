@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import usePosts, { PostData } from '../hooks/usePosts';
 import useUsers, { IUsers } from '../hooks/useUsers';
+import { useStore } from '../store';
+
 import { Link } from 'react-router-dom';
 
 const Home: FunctionComponent = () => {
-  const posts: PostData[] = usePosts();
+  const { state } = useStore();
   const [users] = useUsers();
 
   const getUser = (userId: number): IUsers => {
@@ -12,22 +13,22 @@ const Home: FunctionComponent = () => {
     const [user = {} as IUsers] = users.filter((user) => {
       return user.id === userId
     });
-    return user as IUsers;
+    return user;
   };
 
   return (
     <>
       <div>
           {
-            posts.length === 0 && (
+            state.posts.length === 0 && (
                 <div style={ {marginTop: 20} } className="spinner-border text-warning" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
             )
           }
           {
-            posts.length !== 0 && users.length !== 0 && (
-              posts.map((post) => (
+            state.posts.length !== 0 && users.length !== 0 && (
+              state.posts.map((post) => (
                 <div key={post.id} style={ {marginTop: 10} } className="card">
                   <Link to={'user/'+post.userId} className="card-header">
                     {
