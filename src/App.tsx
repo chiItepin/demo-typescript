@@ -5,6 +5,7 @@ import Home from './containers/Home';
 import Post from './components/post/Post';
 import User from './components/User';
 import NavBar from './components/NavBar';
+import Users from './components/user/Users';
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,6 +24,9 @@ const App: FunctionComponent = () => {
             <Route exact path="/post/:postId">
               <Post />
             </Route>
+            <Route exact path="/users">
+              <Users />
+            </Route>            
             <Route exact path="/user/:userId">
               <User />
             </Route>
